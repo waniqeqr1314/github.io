@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, orientation=landscape">
+    <title>&#x5C0F;&#x6DB5;&#x7F51;&#x7AD9;&#xFF08;&#x4E03;&#x5B9D;&#xFF09;</title>
+    <style>
+        :root {
+            --pink: #ff99cc;
+            --blue: #99ccff;
+            --dark: #1a1a1a;
+            --light: #f0f8ff;
+            --text: #fff;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: row;
+            overflow-x: hidden;
+            transform: scale(0.8);
+            transform-origin: top left;
+            width: 125%;
+            height: 125%;
+        }
+        .sidebar {
+            width: 224px;
+            background-color: var(--dark);
+            border-right: 1px solid var(--blue);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: url('https://i.imgur.com/&#x4F60;&#x7684;&#x4E09;&#x6708;&#x4E03;&#x5934;&#x50CF;&#x5730;&#x5740;.jpg') no-repeat center;
+            background-size: cover;
+            border: 3.2px solid var(--pink);
+            margin-bottom: 12px;
+        }
+        .user-info {
+            text-align: center;
+        }
+        .nickname {
+            font-size: 19.2px;
+            font-weight: bold;
+            color: var(--pink);
+            margin-bottom: 6.4px;
+        }
+        .signature {
+            font-size: 11.2px;
+            color: #ccc;
+        }
+        .vip-badge {
+            display: inline-block;
+            background-color: var(--pink);
+            color: var(--dark);
+            font-size: 9.6px;
+            padding: 2.4px 8px;
+            border-radius: 8px;
+            margin-top: 6.4px;
+        }
+        .menu {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14.4px;
+            margin-top: 20px;
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 9.6px 14.4px;
+            border-radius: 6.4px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text);
+        }
+        .menu-item:hover {
+            background-color: rgba(255, 153, 204, 0.2);
+        }
+        .menu-icon {
+            width: 25.6px;
+            height: 25.6px;
+            margin-right: 9.6px;
+        }
+        .icon-home {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2399ccff"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>') no-repeat center;
+        }
+        .icon-feature {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2399ccff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1v-1c0-2.21-1.79-4-4-4s-4 1.79-4 4v1c-.55 0-1 .45-1 1v3h-1c-1 0-1.64.59-1.9 1.39l-.1.29H6c1.1 0 2.1.45 2.82 1.28A6.95 6.95 0 0 0 12 16c1.66 0 3.14.69 4.28 1.88A6.97 6.97 0 0 0 18 15.39h1.05l-.1-.29z"/></svg>') no-repeat center;
+        }
+        .icon-about {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2399ccff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-12h-2v2h2v-2zm0 4h-2v6h2v-6z"/></svg>') no-repeat center;
+        }
+        .icon-help {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2399ccff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1v-1c0-2.21-1.79-4-4-4s-4 1.79-4 4v1c-.55 0-1 .45-1 1v3h-1c-1 0-1.64.59-1.9 1.39l-.1.29H6c1.1 0 2.1.45 2.82 1.28A6.95 6.95 0 0 0 12 16c1.66 0 3.14.69 4.28 1.88A6.97 6.97 0 0 0 18 15.39h1.05l-.1-.29z"/></svg>') no-repeat center;
+        }
+        .menu-label {
+            font-size: 14.4px;
+        }
+        .main {
+            margin-left: 224px;
+            flex: 1;
+            padding: 28px;
+            min-height: 100vh;
+            background-color: var(--dark);
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 9.6px;
+            padding: 22.4px;
+            box-shadow: 0 4px 14.4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 22.4px;
+            border: 1px solid rgba(153, 204, 255, 0.1);
+        }
+        .card h2 {
+            color: var(--pink);
+            font-size: 22.4px;
+            margin-bottom: 16px;
+        }
+        .card p {
+            font-size: 14.4px;
+            line-height: 1.8;
+            color: #ddd;
+        }
+        .footer {
+            background-color: var(--dark);
+            padding: 14.4px 28px;
+            text-align: center;
+            font-size: 12px;
+            border-top: 1px solid var(--blue);
+            margin-top: 28px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="header">
+            <div class="avatar"></div>
+            <div class="user-info">
+                <div class="nickname">&#x5C0F;&#x6DB5;</div>
+                <div class="signature">&#x5C0F;&#x6DB5;&#x7F51;&#x9875;&#x4EE3;&#x7406;&#x7248;</div>
+                <div class="vip-badge">SVIP0</div>
+            </div>
+        </div>
+        <div class="menu">
+            <a href="#home" class="menu-item">
+                <div class="menu-icon icon-home"></div>
+                <div class="menu-label">&#x9996;&#x9875;</div>
+            </a>
+            <a href="#feature" class="menu-item">
+                <div class="menu-icon icon-feature"></div>
+                <div class="menu-label">&#x529F;&#x80FD;</div>
+            </a>
+            <a href="#about" class="menu-item">
+                <div class="menu-icon icon-about"></div>
+                <div class="menu-label">&#x5173;&#x4E8E;</div>
+            </a>
+            <a href="#help" class="menu-item">
+                <div class="menu-icon icon-help"></div>
+                <div class="menu-label">&#x5E26;&#x52A9;</div>
+            </a>
+        </div>
+    </div>
+    <div class="main">
+        <div id="home" class="page active">
+            <div class="card">
+                <h2>&#x5173;&#x4E8E;&#x9875;&#x9762;</h2>
+                <p>&#x5C0F;&#x6DB5;&#x6587;&#x5B57;&#x7F51;&#x9875;&#x4EE3;&#x7406;&#x7248; &#x600E;&#x4E48;&#xFF1F;&#x6015;&#x6211;&#x5077;&#x770B;&#x4F60;&#x4FE1;&#x606F;&#x548C;&#xFF5E;&#x4F60;&#x7684;&#x8138;&#x554A; &#x7B54;&#x6848;&#x7684;&#x662F;&#x4E0D;&#x4F1A;&#x2026;&#x672C;&#x6B21;&#x7F51;&#x9875;&#x5C5E;&#x4E8E;.html&#x800C;&#x5236;&#x4F5C;&#x672C;&#x7F51;&#x7AD9;&#x5DF2;&#x52A0;&#x5BC6;&#x4E86;&#x54E6;~&#x9632;&#x6B62;&#x6CDB;&#x6EE1;&#x6240;&#x4EE5;&#x65F6;&#x65F6;&#x52A0;&#x5BC6;&#x54AF;&#x1F60E;</p>
+            </div>
+            <div class="footer">
+                &#x5C0F;&#x6DB5;&#x7F51;&#x9875; © 3.7
+            </div>
+        </div>
+        <div id="feature" class="page">
+            <div class="card">
+                <h2>&#x529F;&#x80FD;&#x9875;&#x9762;</h2>
+                <p>&#x5C0F;&#x6DB5;&#x7F51;&#x9875;&#x4EE3;&#x7406;&#x8005;</p>
+                <p>&#x5C0F;&#x6DB5;&#x7F51;&#x9875;&#x4EE3;&#x7406;&#x8005;&#x3002;</p>
+            </div>
+            <div class="footer">
+                &#x5C0F;&#x6DB5;&#x7F51;&#x9875; © 3.7
+            </div>
+        </div>
+        <div id="about" class="page">
+            <div class="card">
+                <h2>&#x5173;&#x4E8E;&#x6211;</h2>
+                <p>&#x5C0F;&#x6DB5;&#x7F51;&#x9875;&#x663E;&#x793A;&#x6587;&#x5B57;&#x800C;&#x5DF2;</p>
+            </div>
+            <div class="footer">
+                &#x5C0F;&#x6DB5;&#x7F51;&#x9875; © 3.7
+            </div>
+        </div>
+        <div id="help" class="page">
+            <div class="card">
+                <h2>&#x5E26;&#x52A9;&#x4E2D;&#x5FC3;</h2>
+                <p>&#x5C0F;&#x6DB5;&#x7F51;&#x9875;QQ:2244933924</p>
+            </div>
+            <div class="footer">
+                &#x5C0F;&#x6DB5;&#x7F51;&#x9875; © 3.7
+            </div>
+        </div>
+    </div>
+    <script>
+        // 页面导航逻辑
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = this.getAttribute('href');
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                document.querySelector(target).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
